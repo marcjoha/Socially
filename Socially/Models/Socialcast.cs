@@ -3,7 +3,7 @@ using ScApi;
 using ScApi.Data;
 
 // denna klassen skall exponera datatyperna från scapi fast wrappa dom i propertychanged
-// viewmodel sköter ev. omskrivning av innehållet
+// viewmodel sköter EVENTUELL omskrivning av innehållet, eller addering.
 
 namespace Socially.Models
 {
@@ -11,11 +11,12 @@ namespace Socially.Models
     {
         private readonly SocialcastApi _scapi;
         private Community _community;
+        
 
         public Socialcast(string communityUrl, string email, string password)
         {
             _scapi = new SocialcastApi(communityUrl, email, password);
-            _community = _scapi.GetCommunity();
+            _community = _scapi.GetCommunity();   
         }
 
         public Community Community
