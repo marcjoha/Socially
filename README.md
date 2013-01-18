@@ -13,4 +13,4 @@ Any type of help is appreciated.
 
 Current look and feel below.
 
-![socially](://dl.dropbox.com/u/5690634/socially-main.png)
+![socially](http://dl.dropbox.com/u/5690634/socially-main.png)
