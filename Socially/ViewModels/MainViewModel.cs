@@ -1,31 +1,47 @@
-﻿using ScApi.Data;
-using Socially.Models;
+﻿using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using ScApi;
+using ScApi.Data;
 
 namespace Socially.ViewModels
 {
     public class MainViewModel
     {
-        private string _windowTitle;
-        private Socialcast _socialcast;
-        private Community _community;
-        private string _profilePhotoToolTip;
+        private readonly SocialcastApi _scapi;
+        private readonly Community _community;
 
         public MainViewModel()
         {
-            _socialcast = new Socialcast("https://demo.socialcast.com", "emily@socialcast.com", "demo");
-
-            _community = _socialcast.Community;
-
-            // Concatenate string for window title
-            _windowTitle = string.Format("Socially - {0}", _community.Name);
-
-            // Concatenate name and title to use as image tooltip
-            _profilePhotoToolTip = string.Format("{0}, {1}", _community.Profile.Name, _community.Profile.Title);
-
+            _scapi = new SocialcastApi("https://demo.socialcast.com", "emily@socialcast.com", "demo");
+            _community = _scapi.GetCommunity();
         }
 
-        public Community Community { get { return _community; } }
-        public string WindowTitle { get { return _windowTitle; } }
-        public string ProfilePhotoToolTip { get { return _profilePhotoToolTip; } }
+        public string WindowTitle
+        {
+            // Concatenate string for window title
+            get { return string.Format("Socially - {0}", _community.Name); }
+        }
+
+        public string ProfilePhotoUrl
+        {
+            get { return _community.Profile.Avatars.Square140; }
+        }
+
+        public string ProfilePhotoToolTip
+        {
+            // Concatenate name and title to use as image tooltip
+            get { return string.Format("{0}, {1}", _community.Profile.Name, _community.Profile.Title); }
+        }
+
+        public ObservableCollection<MessageViewModel> HomeStream
+        {
+            get { return new ObservableCollection<MessageViewModel>(GetStream("api/messages")); }
+        }
+
+        private List<MessageViewModel> GetStream(string resource)
+        {
+            return _scapi.GetStream(resource).Select(message => new MessageViewModel(message)).ToList();
+        }
     }
 }
