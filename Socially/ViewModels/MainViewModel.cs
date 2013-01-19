@@ -1,25 +1,23 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using ScApi;
+﻿using System.Collections.ObjectModel;
 using ScApi.Data;
 
 namespace Socially.ViewModels
 {
-    public class MainViewModel
+    public class MainViewModel : ViewModelBase
     {
-        private readonly SocialcastApi _scapi;
         private readonly Community _community;
+        private ObservableCollection<MessageViewModel> _homeStream;
+        private ObservableCollection<MessageViewModel> _mentionsStream;
+        private ObservableCollection<MessageViewModel> _sentStream;
+        private ObservableCollection<MessageViewModel> _companyStream;
 
-        public MainViewModel()
+        public MainViewModel(Community community)
         {
-            _scapi = new SocialcastApi("https://demo.socialcast.com", "emily@socialcast.com", "demo");
-            _community = _scapi.GetCommunity();
+            _community = community;
         }
 
         public string WindowTitle
         {
-            // Concatenate string for window title
             get { return string.Format("Socially - {0}", _community.Name); }
         }
 
@@ -30,18 +28,51 @@ namespace Socially.ViewModels
 
         public string ProfilePhotoToolTip
         {
-            // Concatenate name and title to use as image tooltip
             get { return string.Format("{0}, {1}", _community.Profile.Name, _community.Profile.Title); }
         }
 
         public ObservableCollection<MessageViewModel> HomeStream
         {
-            get { return new ObservableCollection<MessageViewModel>(GetStream("api/messages")); }
+            get { return _homeStream; }
+            set
+            {
+                if (_homeStream == value) return;
+                _homeStream = value;
+                OnPropertyChanged("HomeStream");
+            }
         }
 
-        private List<MessageViewModel> GetStream(string resource)
+        public ObservableCollection<MessageViewModel> MentionsStream
         {
-            return _scapi.GetStream(resource).Select(message => new MessageViewModel(message)).ToList();
+            get { return _mentionsStream; }
+            set
+            {
+                if (_mentionsStream == value) return;
+                _mentionsStream = value;
+                OnPropertyChanged("MentionsStream");
+            }
+        }
+
+        public ObservableCollection<MessageViewModel> SentStream
+        {
+            get { return _sentStream; }
+            set
+            {
+                if (_sentStream == value) return;
+                _sentStream = value;
+                OnPropertyChanged("SentStream");
+            }
+        }
+
+        public ObservableCollection<MessageViewModel> CompanyStream
+        {
+            get { return _companyStream; }
+            set
+            {
+                if (_companyStream == value) return;
+                _companyStream = value;
+                OnPropertyChanged("CompanyStream");
+            }
         }
     }
 }
