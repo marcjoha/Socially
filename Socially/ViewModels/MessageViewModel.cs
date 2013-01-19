@@ -73,7 +73,7 @@ namespace Socially.ViewModels
         {
             get
             {
-                var list = _message.MediaFiles.Select(mF => new MediaFileViewModel(mF)).ToList();
+                List<MediaFileViewModel> list = _message.MediaFiles.Select(mF => new MediaFileViewModel(mF)).ToList();
                 return new ObservableCollection<MediaFileViewModel>(list);
             }
         }
