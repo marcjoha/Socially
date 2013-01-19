@@ -32,7 +32,19 @@ namespace Socially.ViewModels
 
         public string Text
         {
-            get { return _message.Body; }
+            get
+            {
+                if (!string.IsNullOrWhiteSpace(_message.Body))
+                {
+                    return _message.Body;
+                }
+                else
+                {
+                    // In the vast majority of cases, titles provid little value in socialcast,
+                    // which is why they're only printed here if the body is empty.
+                    return _message.Title;
+                }
+            }
         }
 
         public string CreatedAt
