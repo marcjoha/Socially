@@ -21,7 +21,6 @@ namespace Socially.ViewModels
 
         public string ProfilePhotoToolTip
         {
-            // Concatenate name and title to use as image tooltip
             get { return string.Format("{0}, {1}", _message.User.Name, _message.User.Title); }
         }
 
@@ -36,8 +35,8 @@ namespace Socially.ViewModels
             {
                 if (_message.Groups.Count > 0)
                 {
-                    var action = " posted to ";
-                    for(var i = 0; i < _message.Groups.Count-1; i++)
+                    string action = " posted to ";
+                    for (int i = 0; i < _message.Groups.Count - 1; i++)
                     {
                         action += ", " + _message.Groups[i].Groupname;
                     }
@@ -64,8 +63,18 @@ namespace Socially.ViewModels
         {
             get
             {
-                List<ExternalResourceViewModel> list = _message.ExternalResources.Select(eR => new ExternalResourceViewModel(eR)).ToList<ExternalResourceViewModel>();
+                List<ExternalResourceViewModel> list =
+                    _message.ExternalResources.Select(eR => new ExternalResourceViewModel(eR)).ToList();
                 return new ObservableCollection<ExternalResourceViewModel>(list);
+            }
+        }
+
+        public ObservableCollection<MediaFileViewModel> MediaFiles
+        {
+            get
+            {
+                var list = _message.MediaFiles.Select(mF => new MediaFileViewModel(mF)).ToList();
+                return new ObservableCollection<MediaFileViewModel>(list);
             }
         }
     }

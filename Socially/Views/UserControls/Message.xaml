@@ -14,32 +14,33 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Image Grid.Column="0" VerticalAlignment="Top" Margin="5" Source="{Binding Path=ProfilePhotoUrl}" ToolTip="{Binding Path=ProfilePhotoToolTip}" />
+        <Image Grid.Column="0" VerticalAlignment="Top" Margin="5" Source="{Binding Path=ProfilePhotoUrl}"
+               ToolTip="{Binding Path=ProfilePhotoToolTip}" />
 
         <StackPanel Grid.Column="1" Margin="5,0,5,0">
 
             <StackPanel Orientation="Horizontal">
                 <!--Username-->
-                <TextBlock Text="{Binding Name}" FontSize="13" FontWeight="Bold" />
+                <TextBlock Text="{Binding Path=Name}" FontSize="13" FontWeight="Bold" />
 
                 <!--Show "action", e.g. "posted a new profile picture", or "posted to group A"-->
-                <TextBlock Text="{Binding Action}" FontSize="13" FontStyle="Italic" Foreground="Gray" />
+                <TextBlock Text="{Binding Path=Action}" FontSize="13" FontStyle="Italic" Foreground="Gray" />
             </StackPanel>
 
-            <!--Show body field unless empty-->
-            <TextBlock Text="{Binding Text}" TextWrapping="Wrap" />
+            <!--Body field, the actual message-->
+            <TextBlock Text="{Binding Path=Text}" TextWrapping="Wrap" />
 
-            <!--External resources, if any-->
-            <ItemsControl ItemsSource="{Binding ExternalResources}" Margin="0,5,25,0">
+            <!--External resources-->
+            <ItemsControl ItemsSource="{Binding Path=ExternalResources}" Margin="0,5,25,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <usercontrols:ExternalResource/>
+                        <usercontrols:ExternalResource />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
-            <!--Media files, if any-->
-            <!--<ItemsControl ItemsSource="{Binding MediaFiles}">
+            <!--Media files-->
+            <ItemsControl ItemsSource="{Binding Path=MediaFiles}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <StackPanel Orientation="Horizontal" Margin="0,5,15,0" />
@@ -48,17 +49,17 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#FFBBBBBB" BorderThickness="1" Margin="0,0,5,0">
-                            <Image MaxHeight="140" MaxWidth="140" Source="{Binding Thumbnails.Stream}" />
+                            <Image MaxHeight="140" MaxWidth="140" Source="{Binding Path=ThumbnailUrl}" />
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
+            </ItemsControl>
 
             <!--Metadata and actions-->
             <!--<StackPanel Orientation="Horizontal" Margin="0,5,0,0">-->
 
-                <!--Date-->
-                <!--<TextBlock Text="{Binding CreatedAt}" FontSize="11" Foreground="DimGray" />-->
+            <!--Date-->
+            <!--<TextBlock Text="{Binding CreatedAt}" FontSize="11" Foreground="DimGray" />-->
 
             <!--</StackPanel>-->
 

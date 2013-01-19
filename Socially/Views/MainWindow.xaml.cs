@@ -17,11 +17,12 @@ namespace Socially.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CancellationTokenSource _cancelDaemon = new CancellationTokenSource();
         private readonly SocialcastApi _scapi;
         private readonly Community _community;
 
+        private CancellationTokenSource _cancelDaemon = new CancellationTokenSource();
         private readonly Dictionary<string, int> _streams = new Dictionary<string, int>();
+        
         private MainViewModel _mainViewModel;
 
         public MainWindow()
@@ -33,7 +34,7 @@ namespace Socially.Views
             // Get community info
             _community = _scapi.GetCommunity();
 
-            // Find all stream ids
+            // Find all stream ids, so we can fetch messages later on
             var streams = _scapi.GetStreams();
             _streams.Add("Home Stream", streams.Where(x => x.Name.Equals("Home Stream")).Select(x => x.Id).First());
             _streams.Add("@Mentions", streams.Where(x => x.Name.Equals("@Mentions")).Select(x => x.Id).First());
