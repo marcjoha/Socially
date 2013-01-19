@@ -56,12 +56,12 @@
             </ItemsControl>
 
             <!--Metadata and actions-->
-            <!--<StackPanel Orientation="Horizontal" Margin="0,5,0,0">-->
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
 
-            <!--Date-->
-            <!--<TextBlock Text="{Binding CreatedAt}" FontSize="11" Foreground="DimGray" />-->
+                <!--Date-->
+                <TextBlock Text="{Binding CreatedAt}" FontSize="11" Foreground="DimGray" />
 
-            <!--</StackPanel>-->
+            </StackPanel>
 
             <!--Comments-->
             <!--<ItemsControl ItemsSource="{Binding Comments}" Margin="0,5,5,0">
