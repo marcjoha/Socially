@@ -30,6 +30,32 @@ namespace Socially.ViewModels
             get { return _message.User.Name; }
         }
 
+        public string Text
+        {
+            get { return _message.Body; }
+        }
+
+        public string CreatedAt
+        {
+            get
+            {
+                DateTime createdAt = _message.CreatedAt.ToLocalTime();
+
+                if (createdAt.Date == DateTime.Today)
+                {
+                    return string.Format("Today, {0}", createdAt.ToShortTimeString());
+                }
+                else if (createdAt.Date == DateTime.Today.AddDays(-1))
+                {
+                    return string.Format("Yesterday, {0}", createdAt.ToShortTimeString());
+                }
+                else
+                {
+                    return createdAt.ToShortDateString();
+                }
+            }
+        }
+
         public string Action
         {
             get
@@ -55,33 +81,6 @@ namespace Socially.ViewModels
             }
         }
 
-        public string Text
-        {
-            get { return _message.Body; }
-        }
-
-        public string CreatedAt
-        {
-            get
-            {
-                var createdAt = _message.CreatedAt.ToLocalTime();
-
-                if (createdAt.Date == DateTime.Today)
-                {
-                    return string.Format("Today, {0}", createdAt.ToShortTimeString());
-                }
-                else if (createdAt.Date == DateTime.Today.AddDays(-1))
-                {
-                    return string.Format("Yesterday, {0}", createdAt.ToShortTimeString());
-                }
-                else
-                {
-                    return createdAt.ToShortDateString();
-                }
-
-            }
-        }
-
         public ObservableCollection<ExternalResourceViewModel> ExternalResources
         {
             get
@@ -98,6 +97,15 @@ namespace Socially.ViewModels
             {
                 List<MediaFileViewModel> list = _message.MediaFiles.Select(mF => new MediaFileViewModel(mF)).ToList();
                 return new ObservableCollection<MediaFileViewModel>(list);
+            }
+        }
+
+        public ObservableCollection<CommentViewModel> Comments
+        {
+            get
+            {
+                List<CommentViewModel> list = _message.Comments.Select(c => new CommentViewModel(c)).ToList();
+                return new ObservableCollection<CommentViewModel>(list);
             }
         }
     }

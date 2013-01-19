@@ -64,26 +64,13 @@
             </StackPanel>
 
             <!--Comments-->
-            <!--<ItemsControl ItemsSource="{Binding Comments}" Margin="0,5,5,0">
+            <ItemsControl ItemsSource="{Binding Comments}" Margin="0,5,5,0">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Grid Background="#FFEBEFF4">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="45" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Grid.Column="0" Source="{Binding User.Avatars.Square45}" VerticalAlignment="Top"
-                                   Margin="5" />
-                            <StackPanel Grid.Column="1" Margin="0,0,5,5">
-                                <TextBlock Text="{Binding User.Name}" FontWeight="Bold" Margin="0,2,0,0" />
-                                <TextBlock Text="{Binding Text}" FontSize="11" TextWrapping="Wrap" />
-                                <TextBlock Text="{Binding CreatedAt}" FontSize="11" Foreground="DimGray"
-                                           Margin="0,2,0,0" />
-                            </StackPanel>
-                        </Grid>
+                        <usercontrols:Comment />
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
-            </ItemsControl>-->
+            </ItemsControl>
 
         </StackPanel>
     </Grid>
